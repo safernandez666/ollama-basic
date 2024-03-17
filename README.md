@@ -1,8 +1,8 @@
-<p align="center">
-   # 🦙 Basic Setup for Ollama & RAG
-</p>
+<h1 align="center"> 🦙 Basic Setup for Ollama & RAG </h1>
+
 
 Welcome to the basic setup guide for Ollama & RAG! This guide will walk you through setting up your environment using Anaconda and loading dependencies from an `environment.yaml` file.
+
 
 ## Creating an Environment in Anaconda 
 
