@@ -25,10 +25,10 @@ retriever = load_chroma_db(DB_PATH)
 
 # Antes del RAG
 print(Fore.BLUE + "\n" + "Antes de crear el RAG" + "\n" + Style.RESET_ALL)
-before_rag_template = "How many female members are there in the Argentine financial company {topic}? "
+before_rag_template = "Who is {topic}? "
 before_rag_prompt = ChatPromptTemplate.from_template(before_rag_template)
 before_rag_chain = before_rag_prompt | model_local | StrOutputParser()
-print(before_rag_chain.invoke({"topic": "NaranjaX"}))
+print(before_rag_chain.invoke({"topic": "Stephen Maturin"}))
 
 # Despues del RAG
 if retriever:
@@ -44,7 +44,7 @@ if retriever:
         | model_local
         | StrOutputParser()
     )
-    print(after_rag_chain.invoke("How many female members are there in the Argentine financial company NaranjaX?"))
+    print(after_rag_chain.invoke("Whi is Stephen Maturin?"))
 else:
     print("\n" + Fore.GREEN + "Despues de crear el RAG con ChromaDB" + "\n" + Style.RESET_ALL)
     print("Salteo el Proceso de RAG no hay ChromaDB.")
