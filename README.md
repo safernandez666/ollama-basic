@@ -41,10 +41,15 @@ The first program needs to have a data folder, where the PDFs are saved in order
 
 ```python3 load.py```
 
+<p align="center">
+<img src="screenshots/load.png" width="800" >
+</p>
+
+
 The second one does the query with and without the vector database. To know if what we are doing is delivering an answer with proper context.
 
 ```python3 app.py```
 
 <p align="center">
-<img src="screenshots/Running.png" width="800" >
+<img src="screenshots/app.png" width="800" >
 </p>

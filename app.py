@@ -12,11 +12,11 @@ DB_PATH = "vectorstores/db/"
 
 def load_chroma_db(db_path):
     if os.path.exists(db_path):
-        print(Fore.YELLOW + "Loading ChromaDB" + Style.RESET_ALL)
+        print("\n" + Fore.YELLOW + "Cargando ChromaDB" + Style.RESET_ALL + "\n")
         vectorstore = Chroma(persist_directory=DB_PATH, embedding_function=GPT4AllEmbeddings())
         retriever = vectorstore.as_retriever()
     else:
-        print(Fore.YELLOW + "ChromaDB not found. Skipping." + Style.RESET_ALL)
+        print(Fore.YELLOW + "ChromaDB no se encuentra. Salteando." + Style.RESET_ALL)
         retriever = None
     return retriever
 
@@ -24,15 +24,16 @@ def load_chroma_db(db_path):
 retriever = load_chroma_db(DB_PATH)
 
 # Antes del RAG
-print(Fore.BLUE + "\n" + "Antes de crear el RAG" + "\n" + Style.RESET_ALL)
+print(Fore.YELLOW + "\n" + "Antes de crear el RAG" + "\n" + Style.RESET_ALL)
 before_rag_template = "Who is {topic}? "
+#print(Fore.YELLOW + "\n" + "Pregunta: " + Style.RESET_ALL + before_rag_template)
 before_rag_prompt = ChatPromptTemplate.from_template(before_rag_template)
 before_rag_chain = before_rag_prompt | model_local | StrOutputParser()
 print(before_rag_chain.invoke({"topic": "Stephen Maturin"}))
 
 # Despues del RAG
 if retriever:
-    print("\n" + Fore.GREEN + "Despues de crear el RAG con ChromaDB" + "\n" + Style.RESET_ALL)
+    print("\n" + Fore.YELLOW + "Despues de crear el RAG con ChromaDB" + "\n" + Style.RESET_ALL)
     after_rag_template = """Answer based on the following context:
     {context}
     Pregunta: {question}
@@ -44,7 +45,7 @@ if retriever:
         | model_local
         | StrOutputParser()
     )
-    print(after_rag_chain.invoke("Whi is Stephen Maturin?"))
+    print(after_rag_chain.invoke("Whi is Stephen Maturin? Can you comment some personality indicators?"))
 else:
-    print("\n" + Fore.GREEN + "Despues de crear el RAG con ChromaDB" + "\n" + Style.RESET_ALL)
+    print("\n" + Fore.YELLOW + "Despues de crear el RAG" + "\n" + Style.RESET_ALL)
     print("Salteo el Proceso de RAG no hay ChromaDB.")
